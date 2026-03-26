@@ -202,7 +202,7 @@ function closeModal(){
 function closeModalOutside(e){if(e.target===document.getElementById('modal'))closeModal();}
 
 // Draws a schematic tower on canvas with real bead colors
-function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1) {
+function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1, whiteBase=false) {
   const cols = [c0||[], c1||[], c2||[]];
   const capH = [74, 50, 26];
   const xs = [-38, 0, 38].map(x => cx + x*scale);
@@ -210,10 +210,13 @@ function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1) {
   const rW = 6*scale, bR = 11*scale;
 
   // Base
-  ctx.fillStyle = '#222';
+  ctx.fillStyle = whiteBase ? '#fff' : '#222';
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 1.5*scale;
   ctx.beginPath();
   ctx.roundRect(cx - baseW/2, cy - baseH, baseW, baseH, 4*scale);
   ctx.fill();
+  if(whiteBase){ctx.beginPath();ctx.roundRect(cx - baseW/2, cy - baseH, baseW, baseH, 4*scale);ctx.stroke();}
 
   for (let ci = 0; ci < 3; ci++) {
     const x = xs[ci];
@@ -256,52 +259,24 @@ function downloadImage(){
   const sc = currentSC; if(!sc) return;
 
   const S = 3;
-  const W = 280, H = 460;
+  const W = 280, H = 260;
   const canvas = document.createElement('canvas');
   canvas.width = W*S; canvas.height = H*S;
   const ctx = canvas.getContext('2d');
   ctx.scale(S, S);
 
-  // White background with border
+  // White background + rounded border
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, W, H);
   ctx.strokeStyle = '#222';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(2, 2, W-4, H-4);
+  ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.roundRect(3, 3, W-6, H-6, 14); ctx.stroke();
 
-  const panelW = W - 20, panelX = 10, panelH = 170;
-
-  // ── TOP PANEL: Başlangıç ──
-  const topY = 12;
-  ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.roundRect(panelX, topY, panelW, panelH, 6); ctx.stroke();
-  ctx.fillStyle = '#222'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText('BAŞLANGIÇ', W/2, topY + 15);
-  drawSchematicTower(ctx, START[0], START[1], START[2], W/2, topY + panelH - 10, 0.95);
-
-  // ── MIDDLE DIVIDER ──
-  const midY = topY + panelH + 8;
-  ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(panelX+20, midY+10); ctx.lineTo(W/2-36, midY+10); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(W/2+36, midY+10); ctx.lineTo(panelX+panelW-20, midY+10); ctx.stroke();
-  ctx.fillStyle = '#222'; ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText(`Hamle sayısı : ${currentTabN}`, W/2, midY + 15);
-
-  // ── BOTTOM PANEL: Hedef ──
-  const botY = midY + 28;
-  ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.roundRect(panelX, botY, panelW, panelH, 6); ctx.stroke();
-  ctx.fillStyle = '#222'; ctx.font = 'bold 11px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText('HEDEF', W/2, botY + 15);
-  drawSchematicTower(ctx, sc.end[0], sc.end[1], sc.end[2], W/2, botY + panelH - 10, 0.95);
-
-  // ── Senaryo adı ──
-  const footY = botY + panelH + 16;
-  ctx.fillStyle = '#666'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText(sc.label, W/2, footY);
+  // Draw target tower only, white base, no text
+  drawSchematicTower(ctx, sc.end[0], sc.end[1], sc.end[2], W/2, H - 30, 1.15, true);
 
   const link = document.createElement('a');
-  link.download = `boncuk-${sc.label.replace(/[^\w]/g,'-')}.png`;
+  link.download = `boncuk-hedef-${sc.label.replace(/[^\w]/g,'-')}.png`;
   link.href = canvas.toDataURL('image/png');
   link.click();
 }
