@@ -75,7 +75,7 @@
       <div class="modal-steps-title">Hamleler</div>
       <div class="modal-steps-list" id="modal-steps-list"></div>
     </div>
-    <button class="download-btn" onclick="downloadImage()">⬇️ Hedef Görseli İndir</button>
+    <button class="download-btn" onclick="downloadImage()">⬇️ Görseli İndir</button>
   </div>
 </div>
 
@@ -201,65 +201,120 @@ function closeModal(){
 }
 function closeModalOutside(e){if(e.target===document.getElementById('modal'))closeModal();}
 
+// Draws a schematic tower on canvas (black & white style like the French test)
+function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1) {
+  // cx,cy = center-x, bottom-y of the base
+  const cols = [c0||[], c1||[], c2||[]];
+  const capH = [74, 50, 26];
+  const xs = [-38, 0, 38].map(x => cx + x*scale);
+  const baseW = 100*scale, baseH = 10*scale;
+  const rW = 6*scale, bR = 11*scale;
+
+  // Base
+  ctx.fillStyle = '#222';
+  ctx.beginPath();
+  ctx.roundRect(cx - baseW/2, cy - baseH, baseW, baseH, 4*scale);
+  ctx.fill();
+
+  for (let ci = 0; ci < 3; ci++) {
+    const x = xs[ci];
+    const rH = capH[ci] * scale;
+    // Rod
+    ctx.fillStyle = '#555';
+    ctx.beginPath();
+    ctx.roundRect(x - rW/2, cy - baseH - rH, rW, rH, 3*scale);
+    ctx.fill();
+    // Beads
+    for (let bi = 0; bi < cols[ci].length; bi++) {
+      const bead = cols[ci][bi];
+      const bcy = cy - baseH - bR - 1 - bi*(bR*2 + 2*scale);
+      // Fill: R=dark, B=black, Y=white with border
+      if (bead === 'R') {
+        ctx.fillStyle = '#333';
+      } else if (bead === 'B') {
+        ctx.fillStyle = '#111';
+      } else {
+        ctx.fillStyle = '#fff';
+      }
+      ctx.beginPath(); ctx.arc(x, bcy, bR, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5*scale;
+      ctx.beginPath(); ctx.arc(x, bcy, bR, 0, Math.PI*2); ctx.stroke();
+      // Small label inside
+      ctx.fillStyle = bead==='Y' ? '#333' : '#fff';
+      ctx.font = `bold ${Math.round(8*scale)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(bead==='B'?'M':bead==='Y'?'S':'K', x, bcy + 3*scale);
+    }
+  }
+}
+
 function downloadImage(){
-  const sc=currentSC; if(!sc)return;
-  const canvas=document.createElement('canvas');
-  const S=2, W=400, H=520;
-  canvas.width=W*S; canvas.height=H*S;
-  const ctx=canvas.getContext('2d');
-  ctx.scale(S,S);
+  const sc = currentSC; if(!sc) return;
 
-  // BG
-  ctx.fillStyle='#FBF3E8'; ctx.fillRect(0,0,W,H);
+  const S = 3; // retina
+  const W = 280, H = 480;
+  const canvas = document.createElement('canvas');
+  canvas.width = W*S; canvas.height = H*S;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(S, S);
 
-  // Header
-  ctx.fillStyle='#5B3218';
-  ctx.beginPath(); ctx.roundRect(0,0,W,72,[0,0,0,0]); ctx.fill();
-  ctx.fillStyle='#FBF3E8'; ctx.font='bold 22px sans-serif'; ctx.textAlign='center';
-  ctx.fillText('🪵 Boncuk Bulmacası', W/2, 30);
-  ctx.fillStyle='#C4A882'; ctx.font='13px sans-serif';
-  ctx.fillText(currentTabN+' Hamlelik Senaryo', W/2, 52);
+  // White background with border
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = '#222';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(2, 2, W-4, H-4);
 
-  // Title
-  ctx.fillStyle='#3A2410'; ctx.font='bold 17px sans-serif'; ctx.textAlign='center';
-  ctx.fillText(sc.label, W/2, 102);
+  const panelW = W - 20;
+  const panelX = 10;
+  const panelH = 170;
 
-  // Hedef label
-  ctx.fillStyle='#A08060'; ctx.font='bold 11px sans-serif';
-  ctx.fillText('🎯  HEDEF DURUM', W/2, 128);
+  // ── TOP PANEL: Başlangıç ──
+  const topY = 12;
+  ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.roundRect(panelX, topY, panelW, panelH, 6); ctx.stroke();
 
-  // Draw tower SVG
-  const svgStr=towerSVGLarge(...sc.end);
-  const blob=new Blob([svgStr],{type:'image/svg+xml'});
-  const url=URL.createObjectURL(blob);
-  const img=new Image();
-  img.onload=function(){
-    const tw=224, th=205;
-    ctx.drawImage(img,(W-tw)/2,138,tw,th);
-    URL.revokeObjectURL(url);
+  // "BAŞLANGIÇ" label
+  ctx.fillStyle = '#444'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('BAŞLANGIÇ', W/2, topY + 14);
 
-    // Steps header
-    ctx.fillStyle='#8B5E3C'; ctx.font='bold 11px sans-serif'; ctx.textAlign='left';
-    ctx.fillText('HAMLELER', 30, 368);
+  // Draw START tower
+  drawSchematicTower(ctx, START[0], START[1], START[2], W/2, topY + panelH - 10, 0.95);
 
-    sc.steps.forEach((step,idx)=>{
-      const y=388+idx*30;
-      ctx.fillStyle='#F0E4D0';
-      ctx.beginPath(); ctx.roundRect(30,y-18,340,24,[12]); ctx.fill();
-      ctx.fillStyle='#5B3218';
-      ctx.beginPath(); ctx.arc(50,y-6,10,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='#FBF3E8'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
-      ctx.fillText(idx+1,50,y-2);
-      ctx.fillStyle='#3A2410'; ctx.font='bold 13px sans-serif'; ctx.textAlign='left';
-      ctx.fillText(step,68,y-2);
-    });
+  // ── MIDDLE DIVIDER: hamle sayısı ──
+  const midY = topY + panelH + 8;
+  ctx.strokeStyle = '#bbb'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(panelX+20, midY+10); ctx.lineTo(W/2-30, midY+10); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W/2+30, midY+10); ctx.lineTo(panelX+panelW-20, midY+10); ctx.stroke();
 
-    const link=document.createElement('a');
-    link.download=`boncuk-${sc.label.replace(/[^\w]/g,'-')}.png`;
-    link.href=canvas.toDataURL('image/png');
-    link.click();
-  };
-  img.src=url;
+  ctx.fillStyle = '#222';
+  ctx.font = 'bold 12px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(`Hamle sayısı : ${currentTabN}`, W/2, midY + 15);
+
+  // ── BOTTOM PANEL: Hedef ──
+  const botY = midY + 28;
+  ctx.strokeStyle = '#222'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.roundRect(panelX, botY, panelW, panelH, 6); ctx.stroke();
+
+  ctx.fillStyle = '#444'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('HEDEF', W/2, botY + 14);
+
+  // Draw END tower
+  drawSchematicTower(ctx, sc.end[0], sc.end[1], sc.end[2], W/2, botY + panelH - 10, 0.95);
+
+  // ── BOTTOM: scenario name ──
+  const footY = botY + panelH + 18;
+  ctx.fillStyle = '#666'; ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(sc.label, W/2, footY);
+
+  // Legend
+  ctx.fillStyle = '#888'; ctx.font = '8px sans-serif';
+  ctx.fillText('M = Mavi   S = Sarı   K = Kırmızı', W/2, footY + 14);
+
+  const link = document.createElement('a');
+  link.download = `boncuk-${sc.label.replace(/[^\w]/g,'-')}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
 }
 
 function showTab(id,btn){
