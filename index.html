@@ -290,15 +290,20 @@ function simulateSteps(sc){
 function buildStepsCanvas(targetCanvas){
   const sc = currentSC; if(!sc) return null;
   const states = simulateSteps(sc);
-  const N = states.length; // start + N-1 moves
+  const N = states.length; // start + N-1 moves = N panels
   const S = 3;
-  const towerW = 130, towerH = 140;
-  const padX = 20, padY = 20;
-  const arrowW = 30;
-  // Layout: towers in a vertical list, each row = state
-  const rowH = towerH + 40;
-  const W = towerW + padX*2;
-  const H = padY + N * rowH + padY;
+
+  // Each panel: tower box + divider with hamle text between panels
+  // Panel dimensions
+  const W = 260;
+  const panelW = W - 20; // 240
+  const panelX = 10;
+  const towerH = 160; // height of tower inside panel
+  const panelH = towerH + 16; // total panel height (label inside top)
+  const divH = 28; // divider row height
+  // Total height = N panels + (N-1) dividers + top/bottom padding
+  const padY = 10;
+  const H = padY + N * panelH + (N-1) * divH + padY;
 
   const canvas = targetCanvas || document.createElement('canvas');
   canvas.width = W*S; canvas.height = H*S;
@@ -308,45 +313,38 @@ function buildStepsCanvas(targetCanvas){
   ctx.scale(S,S);
 
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle='#111'; ctx.lineWidth=1.5;
-  ctx.strokeRect(2,2,W-4,H-4);
 
   for(let i=0;i<N;i++){
     const state = states[i];
-    const rowY = padY + i*rowH;
+    const panelY = padY + i*(panelH + divH);
+
+    // Panel border
+    ctx.strokeStyle='#111'; ctx.lineWidth=1.2;
+    ctx.strokeRect(panelX, panelY, panelW, panelH);
+
+    // Tower centered in panel
     const cx = W/2;
-    const cy = rowY + towerH - 10;
+    const cy = panelY + panelH - 12;
+    drawSchematicTower(ctx, state[0], state[1], state[2], cx, cy, 0.9, true);
 
-    // Label
-    ctx.fillStyle='#111';
-    ctx.font='bold 11px sans-serif';
-    ctx.textAlign='center';
-    if(i===0){
-      ctx.fillText('BAŞLANGIÇ', cx, rowY+12);
-    } else {
-      ctx.fillStyle='#555';
-      ctx.font='10px sans-serif';
-      ctx.fillText(sc.steps[i-1], cx, rowY+12);
-    }
-
-    // Tower
-    drawSchematicTower(ctx, state[0], state[1], state[2], cx, cy, 0.72, true);
-
-    // Arrow down (except last)
+    // Divider between panels (hamle label)
     if(i < N-1){
-      const ax = cx;
-      const ay = rowY + rowH - 8;
-      ctx.strokeStyle='#aaa'; ctx.lineWidth=1.2;
-      ctx.beginPath(); ctx.moveTo(ax, ay-10); ctx.lineTo(ax, ay+2); ctx.stroke();
-      // arrowhead
-      ctx.fillStyle='#aaa';
-      ctx.beginPath();
-      ctx.moveTo(ax, ay+8);
-      ctx.lineTo(ax-5, ay);
-      ctx.lineTo(ax+5, ay);
-      ctx.closePath(); ctx.fill();
+      const divY = panelY + panelH;
+      // left line
+      ctx.strokeStyle='#bbb'; ctx.lineWidth=0.8;
+      ctx.beginPath(); ctx.moveTo(panelX+10, divY+divH/2); ctx.lineTo(W/2-40, divY+divH/2); ctx.stroke();
+      // right line
+      ctx.beginPath(); ctx.moveTo(W/2+40, divY+divH/2); ctx.lineTo(panelX+panelW-10, divY+divH/2); ctx.stroke();
+      // hamle text
+      ctx.fillStyle='#111'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
+      const moveLabel = sc.steps[i].replace('🔵','Mavi').replace('🟡','Sarı').replace('🔴','Kırmızı');
+      ctx.fillText(moveLabel, W/2, divY+divH/2+4);
     }
   }
+
+  // Outer border
+  ctx.strokeStyle='#111'; ctx.lineWidth=1.5;
+  ctx.strokeRect(2,2,W-4,H-4);
 
   ctx.restore();
   return canvas;
