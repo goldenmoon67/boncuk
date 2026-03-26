@@ -50,10 +50,12 @@
   .btn-schema{flex:1;padding:13px;border:none;border-radius:14px;background:#EAD9C0;color:var(--tab-active);font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
   .btn-schema:active{opacity:0.7;}
   /* SCHEMA MODAL */
-  .schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:center;justify-content:center;padding:20px;}
+  .schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
   .schema-overlay.open{display:flex;}
-  .schema-box{background:#fff;border-radius:6px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:14px;animation:popIn 0.2s ease both;max-width:340px;width:100%;}
-  .schema-close{align-self:flex-end;width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;}
+  .schema-box{background:#fff;border-radius:6px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:12px;animation:popIn 0.2s ease both;max-width:340px;width:100%;margin:auto;position:relative;}
+  .schema-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:2px;}
+  .schema-modal-title{font-family:'Baloo 2',cursive;font-size:0.9rem;font-weight:800;color:#3A2410;}
+  .schema-close{width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .schema-canvas-wrap{border:2px solid #222;border-radius:0;overflow:hidden;width:100%;}
   .schema-canvas-wrap canvas{display:block;width:100%;height:auto;}
 </style>
@@ -92,6 +94,10 @@
     <div class="btn-row" style="margin-top:8px;">
       <button class="btn-schema" onclick="previewFull()">👁 Tam Şema</button>
       <button class="download-btn" onclick="downloadFull()">⬇️ Tam İndir</button>
+    </div>
+    <div class="btn-row" style="margin-top:8px;">
+      <button class="btn-schema" onclick="previewSteps()">👁 Adım Adım</button>
+      <button class="download-btn" onclick="downloadSteps()">⬇️ Adım İndir</button>
     </div>
   </div>
 </div>
@@ -254,6 +260,110 @@ function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1, whiteBase=false) {
   }
 }
 
+// Simulate moves step by step and return all intermediate states
+function simulateSteps(sc){
+  const CAPACITY = [3,2,1];
+  const colNames = {'🔵 → Sol':0,'🔵 → Orta':1,'🔵 → Sağ':2,
+                    '🟡 → Sol':0,'🟡 → Orta':1,'🟡 → Sağ':2,
+                    '🔴 → Sol':0,'🔴 → Orta':1,'🔴 → Sağ':2};
+  const beadOf   = {'🔵':'B','🟡':'Y','🔴':'R'};
+  let state = [['B'],['Y'],['R']];
+  const states = [state.map(c=>[...c])]; // start
+  for(const step of sc.steps){
+    const emoji = step.split(' ')[0];
+    const bead  = beadOf[emoji];
+    const ti    = colNames[step];
+    state = state.map(c=>[...c]);
+    // find which col has this bead on top
+    for(let fi=0;fi<3;fi++){
+      if(state[fi].length && state[fi][state[fi].length-1]===bead && fi!==ti){
+        state[fi].pop();
+        state[ti].push(bead);
+        break;
+      }
+    }
+    states.push(state.map(c=>[...c]));
+  }
+  return states;
+}
+
+function buildStepsCanvas(targetCanvas){
+  const sc = currentSC; if(!sc) return null;
+  const states = simulateSteps(sc);
+  const N = states.length; // start + N-1 moves
+  const S = 3;
+  const towerW = 130, towerH = 140;
+  const padX = 20, padY = 20;
+  const arrowW = 30;
+  // Layout: towers in a vertical list, each row = state
+  const rowH = towerH + 40;
+  const W = towerW + padX*2;
+  const H = padY + N * rowH + padY;
+
+  const canvas = targetCanvas || document.createElement('canvas');
+  canvas.width = W*S; canvas.height = H*S;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.save();
+  ctx.scale(S,S);
+
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#111'; ctx.lineWidth=1.5;
+  ctx.strokeRect(2,2,W-4,H-4);
+
+  for(let i=0;i<N;i++){
+    const state = states[i];
+    const rowY = padY + i*rowH;
+    const cx = W/2;
+    const cy = rowY + towerH - 10;
+
+    // Label
+    ctx.fillStyle='#111';
+    ctx.font='bold 11px sans-serif';
+    ctx.textAlign='center';
+    if(i===0){
+      ctx.fillText('BAŞLANGIÇ', cx, rowY+12);
+    } else {
+      ctx.fillStyle='#555';
+      ctx.font='10px sans-serif';
+      ctx.fillText(sc.steps[i-1], cx, rowY+12);
+    }
+
+    // Tower
+    drawSchematicTower(ctx, state[0], state[1], state[2], cx, cy, 0.72, true);
+
+    // Arrow down (except last)
+    if(i < N-1){
+      const ax = cx;
+      const ay = rowY + rowH - 8;
+      ctx.strokeStyle='#aaa'; ctx.lineWidth=1.2;
+      ctx.beginPath(); ctx.moveTo(ax, ay-10); ctx.lineTo(ax, ay+2); ctx.stroke();
+      // arrowhead
+      ctx.fillStyle='#aaa';
+      ctx.beginPath();
+      ctx.moveTo(ax, ay+8);
+      ctx.lineTo(ax-5, ay);
+      ctx.lineTo(ax+5, ay);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+
+  ctx.restore();
+  return canvas;
+}
+
+function previewSteps(){
+  openSchemaModal('Adım Adım', buildStepsCanvas, downloadSteps);
+}
+function downloadSteps(){
+  const sc = currentSC; if(!sc) return;
+  const canvas = buildStepsCanvas();
+  const link = document.createElement('a');
+  link.download = `boncuk-adimlar-${sc.label.replace(/[^\w]/g,'-')}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
 function buildFullCanvas(targetCanvas){
   const sc = currentSC; if(!sc) return null;
   const S = 3;
@@ -301,10 +411,7 @@ function buildFullCanvas(targetCanvas){
 }
 
 function previewFull(){
-  const canvas = document.getElementById('schema-canvas');
-  buildFullCanvas(canvas);
-  document.getElementById('schema-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+  openSchemaModal('Başlangıç → Hedef', buildFullCanvas, downloadFull);
 }
 function downloadFull(){
   const sc = currentSC; if(!sc) return;
@@ -335,11 +442,19 @@ function buildSchemaCanvas(targetCanvas){
   return canvas;
 }
 
-function previewSchema(){
+let currentSchemaDownload = downloadImage;
+
+function openSchemaModal(title, buildFn, dlFn){
   const canvas = document.getElementById('schema-canvas');
-  buildSchemaCanvas(canvas);
+  buildFn(canvas);
+  document.getElementById('schema-modal-title').textContent = title;
+  currentSchemaDownload = dlFn;
   document.getElementById('schema-modal').classList.add('open');
   document.body.style.overflow='hidden';
+}
+
+function previewSchema(){
+  openSchemaModal('Hedef Şeması', buildSchemaCanvas, downloadImage);
 }
 function closeSchema(){
   document.getElementById('schema-modal').classList.remove('open');
@@ -367,9 +482,12 @@ function showTab(id,btn){
 <!-- SCHEMA PREVIEW MODAL -->
 <div class="schema-overlay" id="schema-modal" onclick="closeSchemaOutside(event)">
   <div class="schema-box">
-    <button class="schema-close" onclick="closeSchema()">✕</button>
+    <div class="schema-topbar">
+      <span class="schema-modal-title" id="schema-modal-title">Şema</span>
+      <button class="schema-close" onclick="closeSchema()">✕</button>
+    </div>
     <div class="schema-canvas-wrap"><canvas id="schema-canvas"></canvas></div>
-    <button class="download-btn" style="width:100%;margin-top:4px;" onclick="downloadImage()">⬇️ İndir</button>
+    <button class="download-btn" style="width:100%;" id="schema-download-btn" onclick="currentSchemaDownload()">⬇️ İndir</button>
   </div>
 </div>
 </body>
