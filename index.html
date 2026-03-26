@@ -12,7 +12,7 @@
   header{background:var(--tab-active);padding:20px 20px 16px;text-align:center;}
   header h1{font-family:'Baloo 2',cursive;font-size:1.8rem;color:#FBF3E8;font-weight:800;}
   header p{color:#C4A882;font-size:0.85rem;margin-top:4px;}
-  .tabs{display:flex;justify-content:center;gap:8px;padding:16px 16px 0;}
+  .tabs{display:flex;justify-content:center;gap:8px;padding:16px 16px 0;flex-wrap:wrap;}
   .tab-btn{font-family:'Baloo 2',cursive;font-weight:800;font-size:1rem;padding:9px 20px;border:none;border-radius:50px;cursor:pointer;background:#EAD9C0;color:#B09070;transition:all 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
   .tab-btn.active{background:var(--tab-active);color:#FBF3E8;transform:translateY(-2px);box-shadow:0 6px 16px rgba(91,50,24,0.3);}
   .tab-content{display:none;padding:18px 14px 50px;}
@@ -30,78 +30,21 @@
   .step-pill{background:#F0E4D0;border-radius:20px;padding:3px 9px;font-size:0.68rem;font-weight:700;color:var(--tab-active);white-space:nowrap;}
 
   /* MODAL */
-  .modal-overlay{
-    display:none;position:fixed;inset:0;z-index:100;
-    background:rgba(30,15,5,0.82);
-    align-items:center;justify-content:center;
-    padding:24px;
-  }
+  .modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(30,15,5,0.82);align-items:center;justify-content:center;padding:24px;}
   .modal-overlay.open{display:flex;}
-  .modal{
-    background:var(--card);border-radius:28px;
-    width:100%;max-width:360px;
-    padding:28px 24px 24px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.4);
-    animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
-    position:relative;
-  }
+  .modal{background:var(--card);border-radius:28px;width:100%;max-width:360px;padding:28px 24px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;}
   @keyframes popIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
-
-  .modal-close{
-    position:absolute;top:14px;right:14px;
-    width:32px;height:32px;border-radius:50%;
-    border:none;background:#EAD9C0;color:var(--wood-dark);
-    font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
-    font-weight:900;line-height:1;
-  }
-  .modal-badge{
-    display:inline-block;
-    font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;
-    letter-spacing:1.5px;text-transform:uppercase;
-    color:var(--wood-dark);background:#F0E4D0;
-    border-radius:20px;padding:3px 12px;margin-bottom:10px;
-  }
-  .modal-title{
-    font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;
-    color:var(--text);margin-bottom:18px;line-height:1.3;
-  }
-  .modal-target-label{
-    font-family:'Baloo 2',cursive;font-size:0.72rem;font-weight:800;
-    letter-spacing:2px;text-transform:uppercase;color:var(--muted);
-    text-align:center;margin-bottom:10px;
-  }
-  .modal-tower-wrap{
-    display:flex;justify-content:center;
-    background:#FBF3E8;border-radius:16px;padding:16px 10px 10px;
-    margin-bottom:18px;
-    border:1.5px solid var(--border);
-  }
+  .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:#EAD9C0;color:var(--wood-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;}
+  .modal-badge{display:inline-block;font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--wood-dark);background:#F0E4D0;border-radius:20px;padding:3px 12px;margin-bottom:10px;}
+  .modal-title{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:18px;line-height:1.3;}
+  .modal-target-label{font-family:'Baloo 2',cursive;font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:10px;}
+  .modal-tower-wrap{display:flex;justify-content:center;background:#FBF3E8;border-radius:16px;padding:16px 10px 10px;margin-bottom:18px;border:1.5px solid var(--border);}
   .modal-steps{margin-bottom:20px;}
-  .modal-steps-title{
-    font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;
-    letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);
-    margin-bottom:8px;
-  }
+  .modal-steps-title{font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
   .modal-steps-list{display:flex;flex-direction:column;gap:5px;}
-  .modal-step{
-    display:flex;align-items:center;gap:8px;
-    background:#F0E4D0;border-radius:12px;padding:6px 12px;
-    font-size:0.82rem;font-weight:700;color:var(--tab-active);
-  }
-  .modal-step-num{
-    width:20px;height:20px;border-radius:50%;
-    background:var(--tab-active);color:#FBF3E8;
-    font-size:0.65rem;font-weight:900;
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .download-btn{
-    width:100%;padding:13px;border:none;border-radius:14px;
-    background:var(--tab-active);color:#FBF3E8;
-    font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-    transition:opacity 0.15s;
-  }
+  .modal-step{display:flex;align-items:center;gap:8px;background:#F0E4D0;border-radius:12px;padding:6px 12px;font-size:0.82rem;font-weight:700;color:var(--tab-active);}
+  .modal-step-num{width:20px;height:20px;border-radius:50%;background:var(--tab-active);color:#FBF3E8;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .download-btn{width:100%;padding:13px;border:none;border-radius:14px;background:var(--tab-active);color:#FBF3E8;font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s;}
   .download-btn:active{opacity:0.8;}
 </style>
 </head>
@@ -121,16 +64,13 @@
 <div id="t3" class="tab-content"></div>
 <div id="t4" class="tab-content"></div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
   <div class="modal" id="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-badge" id="modal-badge"></div>
     <div class="modal-title" id="modal-title"></div>
     <div class="modal-target-label">🎯 Hedef Durum</div>
-    <div class="modal-tower-wrap">
-      <div id="modal-tower"></div>
-    </div>
+    <div class="modal-tower-wrap"><div id="modal-tower"></div></div>
     <div class="modal-steps">
       <div class="modal-steps-title">Hamleler</div>
       <div class="modal-steps-list" id="modal-steps-list"></div>
@@ -140,58 +80,93 @@
 </div>
 
 <script>
+/*
+  Kapasite: Sol=3, Orta=2, Sağ=1
+  Tüm senaryolar BFS ile hesaplandı — minimum hamle garantili.
+  BAŞLANGIÇ: Sol:[B]  Orta:[Y]  Sağ:[R]
+*/
+
 const SCENARIOS = {
   1: [
-    { label:"Mavi → Ortaya",    steps:["🔵 → Orta"], end:[[],['Y','B'],['R']]   },
-    { label:"Mavi → Sağa",      steps:["🔵 → Sağ"],  end:[[],['Y'],['R','B']]   },
-    { label:"Sarı → Sola",      steps:["🟡 → Sol"],  end:[['B','Y'],[],['R']]   },
-    { label:"Sarı → Sağa",      steps:["🟡 → Sağ"],  end:[['B'],[],['R','Y']]   },
-    { label:"Kırmızı → Sola",   steps:["🔴 → Sol"],  end:[['B','R'],['Y'],[]]   },
-    { label:"Kırmızı → Ortaya", steps:["🔴 → Orta"], end:[['B'],['Y','R'],[]]   },
+    { label:"Mavi → Ortaya",    steps:["🔵 → Orta"], end:[[],['Y','B'],['R']]    },
+    { label:"Sarı → Sola",      steps:["🟡 → Sol"],  end:[['B','Y'],[],['R']]    },
+    { label:"Kırmızı → Sola",   steps:["🔴 → Sol"],  end:[['B','R'],['Y'],[]]    },
+    { label:"Kırmızı → Ortaya", steps:["🔴 → Orta"], end:[['B'],['Y','R'],[]]    },
   ],
+  // Not: "Mavi → Sağ" ve "Sarı → Sağ" yok çünkü sağ çubuk zaten dolu (R var, kapasite=1)
   2: [
-    { label:"Mavi ortaya, Kırmızı sola",  steps:["🔵 → Orta","🔴 → Sol"],  end:[['R'],['Y','B'],[]]       },
-    { label:"Hepsi ortada",               steps:["🔵 → Orta","🔴 → Orta"], end:[[],['Y','B','R'],[]]      },
-    { label:"Mavi sağa, Sarı sola",       steps:["🔵 → Sağ","🟡 → Sol"],   end:[['Y'],[],['R','B']]       },
-    { label:"Hepsi sağda (R-B-Y)",        steps:["🔵 → Sağ","🟡 → Sağ"],   end:[[],[],['R','B','Y']]      },
-    { label:"Hepsi solda (B-Y-R)",        steps:["🟡 → Sol","🔴 → Sol"],   end:[['B','Y','R'],[],[]]       },
-    { label:"Hepsi sağda (R-Y-B)",        steps:["🟡 → Sağ","🔵 → Sağ"],   end:[[],[],['R','Y','B']]      },
+    { label:"Mavi ortaya, Kırmızı sola",   steps:["🔵 → Orta","🔴 → Sol"],  end:[['R'],['Y','B'],[]]      },
+    { label:"Sarı & Kırmızı sola (B-Y-R)", steps:["🟡 → Sol","🔴 → Sol"],   end:[['B','Y','R'],[],[]]     },
+    { label:"Sarı sola, Kırmızı ortaya",   steps:["🟡 → Sol","🔴 → Orta"],  end:[['B','Y'],['R'],[]]      },
+    { label:"Kırmızı & Sarı sola (B-R-Y)", steps:["🔴 → Sol","🟡 → Sol"],   end:[['B','R','Y'],[],[]]     },
+    { label:"Kırmızı sola, Sarı sağa",     steps:["🔴 → Sol","🟡 → Sağ"],   end:[['B','R'],[],['Y']]      },
+    { label:"Kırmızı ortaya, Mavi sağa",   steps:["🔴 → Orta","🔵 → Sağ"],  end:[[],['Y','R'],['B']]      },
   ],
   3: [
-    { label:"Kırmızı & Mavi solda, Sarı ortada",      steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol"],  end:[['R','B'],['Y'],[]]    },
-    { label:"Mavi & Kırmızı yer değiştirdi",          steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ"],  end:[['R'],['Y'],['B']]    },
-    { label:"Sarı & Mavi solda, Kırmızı sağda",       steps:["🔵 → Sağ","🟡 → Sol","🔵 → Sol"],   end:[['Y','B'],[],['R']]   },
-    { label:"Sarı solda, Mavi ortada",                 steps:["🔵 → Sağ","🟡 → Sol","🔵 → Orta"],  end:[['Y'],['B'],['R']]    },
-    { label:"Mavi solda, Kırmızı & Sarı ortada",      steps:["🟡 → Sol","🔴 → Orta","🟡 → Orta"], end:[['B'],['R','Y'],[]]   },
-    { label:"Mavi solda, Kırmızı ortada, Sarı sağda", steps:["🟡 → Sol","🔴 → Orta","🟡 → Sağ"],  end:[['B'],['R'],['Y']]    },
+    { label:"Kırmızı & Mavi solda, Sarı ortada", steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol"],  end:[['R','B'],['Y'],[]]   },
+    { label:"Mavi & Kırmızı yer değiştirdi",     steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ"],  end:[['R'],['Y'],['B']]   },
+    { label:"Mavi solda, Kırmızı & Sarı ortada", steps:["🟡 → Sol","🔴 → Orta","🟡 → Orta"], end:[['B'],['R','Y'],[]]   },
+    { label:"Mavi solda, Kırmızı ortada, Sarı sağda", steps:["🟡 → Sol","🔴 → Orta","🟡 → Sağ"], end:[['B'],['R'],['Y']] },
   ],
   4: [
-    { label:"Kırmızı-Mavi-Sarı solda",          steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol","🟡 → Sol"],  end:[['R','B','Y'],[],[]]   },
-    { label:"Kırmızı & Mavi solda, Sarı sağda", steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol","🟡 → Sağ"],  end:[['R','B'],[],['Y']]    },
-    { label:"Kırmızı & Sarı solda, Mavi sağda", steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ","🟡 → Sol"],  end:[['R','Y'],[],['B']]    },
-    { label:"Kırmızı sola, Mavi & Sarı sağda",  steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ","🟡 → Sağ"],  end:[['R'],[],['B','Y']]    },
-    { label:"Sarı-Mavi-Kırmızı solda",          steps:["🔵 → Sağ","🟡 → Sol","🔵 → Sol","🔴 → Sol"],   end:[['Y','B','R'],[],[]]   },
-    { label:"Sarı & Kırmızı solda, Mavi ortada",steps:["🔵 → Sağ","🟡 → Sol","🔵 → Orta","🔴 → Sol"],  end:[['Y','R'],['B'],[]]    },
+    { label:"Kırmızı-Mavi-Sarı solda",          steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol","🟡 → Sol"],  end:[['R','B','Y'],[],[]]  },
+    { label:"Kırmızı & Mavi solda, Sarı sağda", steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol","🟡 → Sağ"],  end:[['R','B'],[],['Y']]   },
+    { label:"Kırmızı & Sarı solda, Mavi sağda", steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ","🟡 → Sol"],  end:[['R','Y'],[],['B']]   },
+    { label:"Sarı & Kırmızı ortada, Mavi sağda",steps:["🟡 → Sol","🔴 → Orta","🟡 → Orta","🔵 → Sağ"], end:[[],['R','Y'],['B']]   },
+    { label:"Sarı sağda, Kırmızı & Mavi ortada",steps:["🟡 → Sol","🔴 → Orta","🟡 → Sağ","🔵 → Orta"], end:[[],['R','B'],['Y']]   },
   ]
 };
 
+// SVG tower — sağ çubuk kısa (kapasite=1), orta orta boy (kapasite=2), sol uzun (kapasite=3)
 const BC={'B':{fill:'#3A7BD5',stroke:'#2A5BA5',shine:'#6AAAF0'},'Y':{fill:'#F0C030',stroke:'#C09010',shine:'#FAE070'},'R':{fill:'#E03030',stroke:'#B01010',shine:'#F06060'}};
+const CAP_HEIGHTS = [74, 50, 26]; // rod heights: sol=3 boncuk, orta=2, sag=1
 
 function towerSVG(c0,c1,c2, W=118, H=108){
-  const bY=H-8,bH=12,rW=7,rH=74,bR=13,cols=[c0||[],c1||[],c2||[]],xs=[22,59,96];
+  const bY=H-8, bH=12, rW=7, bR=13;
+  const cols=[c0||[],c1||[],c2||[]];
+  const xs=[22,59,96];
   let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  // Base
   s+=`<rect x="4" y="${bY-bH+2}" width="${W-8}" height="${bH}" rx="5" fill="#C8955A" stroke="#A07040" stroke-width="1.5"/>`;
   for(let ci=0;ci<3;ci++){
-    const x=xs[ci],bs=cols[ci];
+    const x=xs[ci], bs=cols[ci];
+    const rH = CAP_HEIGHTS[ci];
+    // Rod
     s+=`<rect x="${x-rW/2}" y="${bY-bH-rH+4}" width="${rW}" height="${rH}" rx="3.5" fill="#D4A060" stroke="#A07040" stroke-width="1"/>`;
-    for(let bi=0;bi<bs.length;bi++){const c=BC[bs[bi]],cy=bY-bH-bR-1-bi*(bR*2+2);s+=`<circle cx="${x}" cy="${cy}" r="${bR}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1.5"/><circle cx="${x-4}" cy="${cy-4}" r="4" fill="${c.shine}" opacity="0.5"/>`;}
+    // Beads
+    for(let bi=0;bi<bs.length;bi++){
+      const c=BC[bs[bi]], cy=bY-bH-bR-1-bi*(bR*2+2);
+      s+=`<circle cx="${x}" cy="${cy}" r="${bR}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="1.5"/>`;
+      s+=`<circle cx="${x-4}" cy="${cy-4}" r="4" fill="${c.shine}" opacity="0.5"/>`;
+    }
+  }
+  return s+`</svg>`;
+}
+
+// Large SVG for modal (scaled up)
+function towerSVGLarge(c0,c1,c2){
+  const scale=1.9;
+  const W=Math.round(118*scale), H=Math.round(108*scale);
+  const bY=H-15, bH=Math.round(12*scale), rW=Math.round(7*scale), bR=Math.round(13*scale);
+  const cols=[c0||[],c1||[],c2||[]];
+  const xs=[Math.round(22*scale), Math.round(59*scale), Math.round(96*scale)];
+  const capH = CAP_HEIGHTS.map(h=>Math.round(h*scale));
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s+=`<rect x="6" y="${bY-bH+3}" width="${W-12}" height="${bH}" rx="8" fill="#C8955A" stroke="#A07040" stroke-width="2"/>`;
+  for(let ci=0;ci<3;ci++){
+    const x=xs[ci], bs=cols[ci], rH=capH[ci];
+    s+=`<rect x="${x-rW/2}" y="${bY-bH-rH+5}" width="${rW}" height="${rH}" rx="5" fill="#D4A060" stroke="#A07040" stroke-width="1.5"/>`;
+    for(let bi=0;bi<bs.length;bi++){
+      const c=BC[bs[bi]], cy=bY-bH-bR-2-bi*(bR*2+3);
+      s+=`<circle cx="${x}" cy="${cy}" r="${bR}" fill="${c.fill}" stroke="${c.stroke}" stroke-width="2"/>`;
+      s+=`<circle cx="${x-6}" cy="${cy-6}" r="6" fill="${c.shine}" opacity="0.45"/>`;
+    }
   }
   return s+`</svg>`;
 }
 
 const START=[['B'],['Y'],['R']];
-let currentSC = null;
-let currentTabN = 1;
+let currentSC=null, currentTabN=1;
 
 function renderTab(n){
   let html='<div class="scenarios">';
@@ -208,22 +183,14 @@ function renderTab(n){
 }
 [1,2,3,4].forEach(renderTab);
 
-function openModal(n, i){
-  const sc = SCENARIOS[n][i];
-  currentSC = sc;
-  currentTabN = n;
-
-  document.getElementById('modal-badge').textContent = n + ' Hamlelik Senaryo';
-  document.getElementById('modal-title').textContent = sc.label;
-
-  // Large tower SVG
-  document.getElementById('modal-tower').innerHTML = towerSVG(...sc.end, 220, 200);
-
-  // Steps
-  document.getElementById('modal-steps-list').innerHTML = sc.steps.map((s,i)=>
-    `<div class="modal-step"><div class="modal-step-num">${i+1}</div>${s}</div>`
-  ).join('');
-
+function openModal(n,i){
+  const sc=SCENARIOS[n][i];
+  currentSC=sc; currentTabN=n;
+  document.getElementById('modal-badge').textContent=n+' Hamlelik Senaryo';
+  document.getElementById('modal-title').textContent=sc.label;
+  document.getElementById('modal-tower').innerHTML=towerSVGLarge(...sc.end);
+  document.getElementById('modal-steps-list').innerHTML=sc.steps.map((s,i)=>
+    `<div class="modal-step"><div class="modal-step-num">${i+1}</div>${s}</div>`).join('');
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow='hidden';
 }
@@ -232,106 +199,73 @@ function closeModal(){
   document.getElementById('modal').classList.remove('open');
   document.body.style.overflow='';
 }
-
-function closeModalOutside(e){
-  if(e.target === document.getElementById('modal')) closeModal();
-}
+function closeModalOutside(e){if(e.target===document.getElementById('modal'))closeModal();}
 
 function downloadImage(){
-  const sc = currentSC;
-  if(!sc) return;
+  const sc=currentSC; if(!sc)return;
+  const canvas=document.createElement('canvas');
+  const S=2, W=400, H=520;
+  canvas.width=W*S; canvas.height=H*S;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(S,S);
 
-  // Draw to canvas
-  const canvas = document.createElement('canvas');
-  const scale = 2;
-  const W = 400, H = 500;
-  canvas.width = W * scale;
-  canvas.height = H * scale;
-  const ctx = canvas.getContext('2d');
-  ctx.scale(scale, scale);
+  // BG
+  ctx.fillStyle='#FBF3E8'; ctx.fillRect(0,0,W,H);
 
-  // Background
-  ctx.fillStyle = '#FBF3E8';
-  ctx.fillRect(0,0,W,H);
-
-  // Header bar
-  ctx.fillStyle = '#5B3218';
-  ctx.beginPath();
-  ctx.roundRect(0,0,W,70,0);
-  ctx.fill();
-
-  // Header text
-  ctx.fillStyle = '#FBF3E8';
-  ctx.font = 'bold 22px sans-serif';
-  ctx.textAlign = 'center';
+  // Header
+  ctx.fillStyle='#5B3218';
+  ctx.beginPath(); ctx.roundRect(0,0,W,72,[0,0,0,0]); ctx.fill();
+  ctx.fillStyle='#FBF3E8'; ctx.font='bold 22px sans-serif'; ctx.textAlign='center';
   ctx.fillText('🪵 Boncuk Bulmacası', W/2, 30);
-  ctx.font = '13px sans-serif';
-  ctx.fillStyle = '#C4A882';
-  ctx.fillText(currentTabN + ' Hamlelik Senaryo', W/2, 52);
+  ctx.fillStyle='#C4A882'; ctx.font='13px sans-serif';
+  ctx.fillText(currentTabN+' Hamlelik Senaryo', W/2, 52);
 
   // Title
-  ctx.fillStyle = '#3A2410';
-  ctx.font = 'bold 18px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(sc.label, W/2, 105);
+  ctx.fillStyle='#3A2410'; ctx.font='bold 17px sans-serif'; ctx.textAlign='center';
+  ctx.fillText(sc.label, W/2, 102);
 
-  // "Hedef Durum" label
-  ctx.fillStyle = '#A08060';
-  ctx.font = 'bold 12px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('🎯  HEDEF DURUM', W/2, 135);
+  // Hedef label
+  ctx.fillStyle='#A08060'; ctx.font='bold 11px sans-serif';
+  ctx.fillText('🎯  HEDEF DURUM', W/2, 128);
 
-  // Draw tower on canvas using SVG→Image
-  const svgStr = towerSVG(...sc.end, 260, 240);
-  const svgBlob = new Blob([svgStr], {type:'image/svg+xml'});
-  const url = URL.createObjectURL(svgBlob);
-  const img = new Image();
-  img.onload = function(){
-    ctx.drawImage(img, (W-260)/2, 148, 260, 240);
+  // Draw tower SVG
+  const svgStr=towerSVGLarge(...sc.end);
+  const blob=new Blob([svgStr],{type:'image/svg+xml'});
+  const url=URL.createObjectURL(blob);
+  const img=new Image();
+  img.onload=function(){
+    const tw=224, th=205;
+    ctx.drawImage(img,(W-tw)/2,138,tw,th);
     URL.revokeObjectURL(url);
 
-    // Steps section
-    ctx.fillStyle = '#8B5E3C';
-    ctx.font = 'bold 11px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('HAMLELER', 30, 415);
+    // Steps header
+    ctx.fillStyle='#8B5E3C'; ctx.font='bold 11px sans-serif'; ctx.textAlign='left';
+    ctx.fillText('HAMLELER', 30, 368);
 
-    sc.steps.forEach((step, idx) => {
-      const y = 435 + idx * 26;
-      // pill bg
-      ctx.fillStyle = '#F0E4D0';
-      ctx.beginPath();
-      ctx.roundRect(30, y-16, 340, 22, 11);
-      ctx.fill();
-      // number circle
-      ctx.fillStyle = '#5B3218';
-      ctx.beginPath();
-      ctx.arc(48, y-5, 9, 0, Math.PI*2);
-      ctx.fill();
-      ctx.fillStyle = '#FBF3E8';
-      ctx.font = 'bold 10px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(idx+1, 48, y-1);
-      // step text
-      ctx.fillStyle = '#3A2410';
-      ctx.font = 'bold 13px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText(step, 65, y-1);
+    sc.steps.forEach((step,idx)=>{
+      const y=388+idx*30;
+      ctx.fillStyle='#F0E4D0';
+      ctx.beginPath(); ctx.roundRect(30,y-18,340,24,[12]); ctx.fill();
+      ctx.fillStyle='#5B3218';
+      ctx.beginPath(); ctx.arc(50,y-6,10,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='#FBF3E8'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
+      ctx.fillText(idx+1,50,y-2);
+      ctx.fillStyle='#3A2410'; ctx.font='bold 13px sans-serif'; ctx.textAlign='left';
+      ctx.fillText(step,68,y-2);
     });
 
-    // Download
-    const link = document.createElement('a');
-    link.download = `boncuk-hedef-${sc.label.replace(/[^a-zA-Z0-9ğüşıöçĞÜŞİÖÇ]/g,'-')}.png`;
-    link.href = canvas.toDataURL('image/png');
+    const link=document.createElement('a');
+    link.download=`boncuk-${sc.label.replace(/[^\w]/g,'-')}.png`;
+    link.href=canvas.toDataURL('image/png');
     link.click();
   };
-  img.src = url;
+  img.src=url;
 }
 
 function showTab(id,btn){
   document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));
-  document.getElementById(id).classList.add('active');btn.classList.add('active');
+  document.getElementById(id).classList.add('active'); btn.classList.add('active');
 }
 </script>
 </body>
