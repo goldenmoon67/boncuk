@@ -46,6 +46,16 @@
   .modal-step-num{width:20px;height:20px;border-radius:50%;background:var(--tab-active);color:#FBF3E8;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .download-btn{width:100%;padding:13px;border:none;border-radius:14px;background:var(--tab-active);color:#FBF3E8;font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s;}
   .download-btn:active{opacity:0.8;}
+  .btn-row{display:flex;gap:10px;margin-top:0;}
+  .btn-schema{flex:1;padding:13px;border:none;border-radius:14px;background:#EAD9C0;color:var(--tab-active);font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
+  .btn-schema:active{opacity:0.7;}
+  /* SCHEMA MODAL */
+  .schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:center;justify-content:center;padding:20px;}
+  .schema-overlay.open{display:flex;}
+  .schema-box{background:#fff;border-radius:6px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:14px;animation:popIn 0.2s ease both;max-width:340px;width:100%;}
+  .schema-close{align-self:flex-end;width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;}
+  .schema-canvas-wrap{border:2px solid #222;border-radius:0;overflow:hidden;width:100%;}
+  .schema-canvas-wrap canvas{display:block;width:100%;height:auto;}
 </style>
 </head>
 <body>
@@ -75,7 +85,14 @@
       <div class="modal-steps-title">Hamleler</div>
       <div class="modal-steps-list" id="modal-steps-list"></div>
     </div>
-    <button class="download-btn" onclick="downloadImage()">⬇️ Görseli İndir</button>
+    <div class="btn-row">
+      <button class="btn-schema" onclick="previewSchema()">👁 Şemayı Gör</button>
+      <button class="download-btn" onclick="downloadImage()">⬇️ İndir</button>
+    </div>
+    <div class="btn-row" style="margin-top:8px;">
+      <button class="btn-schema" onclick="previewFull()">👁 Tam Şema</button>
+      <button class="download-btn" onclick="downloadFull()">⬇️ Tam İndir</button>
+    </div>
   </div>
 </div>
 
@@ -201,80 +218,140 @@ function closeModal(){
 }
 function closeModalOutside(e){if(e.target===document.getElementById('modal'))closeModal();}
 
-// Draws a schematic tower on canvas with real bead colors
+// Draws a schematic tower — flat colors, hollow rods, white base
 function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1, whiteBase=false) {
   const cols = [c0||[], c1||[], c2||[]];
   const capH = [74, 50, 26];
   const xs = [-38, 0, 38].map(x => cx + x*scale);
-  const baseW = 100*scale, baseH = 10*scale;
-  const rW = 6*scale, bR = 11*scale;
+  const baseW = 108*scale, baseH = 11*scale;
+  const rW = 5*scale, bR = 13*scale;
 
-  // Base
-  ctx.fillStyle = whiteBase ? '#fff' : '#222';
-  ctx.strokeStyle = '#222';
-  ctx.lineWidth = 1.5*scale;
-  ctx.beginPath();
-  ctx.roundRect(cx - baseW/2, cy - baseH, baseW, baseH, 4*scale);
-  ctx.fill();
-  if(whiteBase){ctx.beginPath();ctx.roundRect(cx - baseW/2, cy - baseH, baseW, baseH, 4*scale);ctx.stroke();}
+  // Base — sharp corners
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#111';
+  ctx.lineWidth = 1.8*scale;
+  ctx.fillRect(cx - baseW/2, cy - baseH, baseW, baseH);
+  ctx.strokeRect(cx - baseW/2, cy - baseH, baseW, baseH);
 
   for (let ci = 0; ci < 3; ci++) {
     const x = xs[ci];
     const rH = capH[ci] * scale;
-    // Rod
-    ctx.fillStyle = '#888';
-    ctx.beginPath();
-    ctx.roundRect(x - rW/2, cy - baseH - rH, rW, rH, 3*scale);
-    ctx.fill();
-    // Beads
+    // Rod — sharp corners, hollow
+    ctx.fillStyle = '#fff';
+    ctx.strokeStyle = '#111';
+    ctx.lineWidth = 1.5*scale;
+    ctx.fillRect(x - rW/2, cy - baseH - rH, rW, rH);
+    ctx.strokeRect(x - rW/2, cy - baseH - rH, rW, rH);
+
+    // Beads — flat fill, no shadow, no shine
+    const colors = { 'B':'#3A7BD5', 'Y':'#F0C030', 'R':'#CC2020' };
     for (let bi = 0; bi < cols[ci].length; bi++) {
       const bead = cols[ci][bi];
-      const bcy = cy - baseH - bR - 1 - bi*(bR*2 + 2*scale);
-      // Real colors
-      const colors = {
-        'B': { fill:'#3A7BD5', stroke:'#1A4BA5', shine:'#6AAAF0' },
-        'Y': { fill:'#F0C030', stroke:'#C09010', shine:'#FAE070' },
-        'R': { fill:'#E03030', stroke:'#B01010', shine:'#F06060' },
-      };
-      const c = colors[bead];
-      // Shadow
-      ctx.fillStyle = 'rgba(0,0,0,0.15)';
-      ctx.beginPath(); ctx.arc(x+1*scale, bcy+2*scale, bR, 0, Math.PI*2); ctx.fill();
-      // Fill
-      ctx.fillStyle = c.fill;
+      const bcy = cy - baseH - bR - 1 - bi*(bR*2 + 1*scale);
+      ctx.fillStyle = colors[bead];
       ctx.beginPath(); ctx.arc(x, bcy, bR, 0, Math.PI*2); ctx.fill();
-      // Border
-      ctx.strokeStyle = c.stroke; ctx.lineWidth = 1.5*scale;
-      ctx.beginPath(); ctx.arc(x, bcy, bR, 0, Math.PI*2); ctx.stroke();
-      // Shine
-      ctx.fillStyle = c.shine;
-      ctx.globalAlpha = 0.5;
-      ctx.beginPath(); ctx.arc(x - 3*scale, bcy - 3*scale, 3.5*scale, 0, Math.PI*2); ctx.fill();
-      ctx.globalAlpha = 1;
     }
   }
 }
 
-function downloadImage(){
-  const sc = currentSC; if(!sc) return;
-
+function buildFullCanvas(targetCanvas){
+  const sc = currentSC; if(!sc) return null;
   const S = 3;
-  const W = 280, H = 260;
-  const canvas = document.createElement('canvas');
+  const W = 280, H = 500;
+  const canvas = targetCanvas || document.createElement('canvas');
   canvas.width = W*S; canvas.height = H*S;
   const ctx = canvas.getContext('2d');
-  ctx.scale(S, S);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.save();
+  ctx.scale(S,S);
 
-  // White background + rounded border
+  // White bg + outer border
+  ctx.fillStyle = '#fff'; ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle = '#111'; ctx.lineWidth = 2;
+  ctx.strokeRect(2,2,W-4,H-4);
+
+  const panelW = W-24, panelX = 12, panelH = 190;
+
+  // ── TOP: Başlangıç ──
+  const topY = 12;
+  ctx.strokeStyle='#111'; ctx.lineWidth=1.5;
+  ctx.strokeRect(panelX, topY, panelW, panelH);
+  ctx.fillStyle='#111'; ctx.font='bold 12px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('BAŞLANGIÇ', W/2, topY+16);
+  drawSchematicTower(ctx, START[0], START[1], START[2], W/2, topY+panelH-12, 1.08, true);
+
+  // ── DIVIDER ──
+  const divY = topY+panelH+10;
+  ctx.strokeStyle='#ccc'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(panelX+16,divY+11); ctx.lineTo(W/2-38,divY+11); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(W/2+38,divY+11); ctx.lineTo(panelX+panelW-16,divY+11); ctx.stroke();
+  ctx.fillStyle='#111'; ctx.font='bold 13px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('Hamle sayısı : '+currentTabN, W/2, divY+15);
+
+  // ── BOTTOM: Hedef ──
+  const botY = divY+28;
+  ctx.strokeStyle='#111'; ctx.lineWidth=1.5;
+  ctx.strokeRect(panelX, botY, panelW, panelH);
+  ctx.fillStyle='#111'; ctx.font='bold 12px sans-serif'; ctx.textAlign='center';
+  ctx.fillText('HEDEF', W/2, botY+16);
+  drawSchematicTower(ctx, sc.end[0], sc.end[1], sc.end[2], W/2, botY+panelH-12, 1.08, true);
+
+  ctx.restore();
+  return canvas;
+}
+
+function previewFull(){
+  const canvas = document.getElementById('schema-canvas');
+  buildFullCanvas(canvas);
+  document.getElementById('schema-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function downloadFull(){
+  const sc = currentSC; if(!sc) return;
+  const canvas = buildFullCanvas();
+  const link = document.createElement('a');
+  link.download = `boncuk-tam-${sc.label.replace(/[^\w]/g,'-')}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+function buildSchemaCanvas(targetCanvas){
+  const sc = currentSC; if(!sc) return null;
+  const S = 3;
+  const W = 280, H = 260;
+  const canvas = targetCanvas || document.createElement('canvas');
+  canvas.width = W*S; canvas.height = H*S;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.save();
+  ctx.scale(S, S);
   ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, W, H);
   ctx.strokeStyle = '#222';
   ctx.lineWidth = 2.5;
-  ctx.beginPath(); ctx.roundRect(3, 3, W-6, H-6, 14); ctx.stroke();
-
-  // Draw target tower only, white base, no text
+  ctx.strokeRect(3, 3, W-6, H-6);
   drawSchematicTower(ctx, sc.end[0], sc.end[1], sc.end[2], W/2, H - 30, 1.15, true);
+  ctx.restore();
+  return canvas;
+}
 
+function previewSchema(){
+  const canvas = document.getElementById('schema-canvas');
+  buildSchemaCanvas(canvas);
+  document.getElementById('schema-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeSchema(){
+  document.getElementById('schema-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeSchemaOutside(e){
+  if(e.target===document.getElementById('schema-modal')) closeSchema();
+}
+
+function downloadImage(){
+  const sc = currentSC; if(!sc) return;
+  const canvas = buildSchemaCanvas();
   const link = document.createElement('a');
   link.download = `boncuk-hedef-${sc.label.replace(/[^\w]/g,'-')}.png`;
   link.href = canvas.toDataURL('image/png');
@@ -287,5 +364,13 @@ function showTab(id,btn){
   document.getElementById(id).classList.add('active'); btn.classList.add('active');
 }
 </script>
+<!-- SCHEMA PREVIEW MODAL -->
+<div class="schema-overlay" id="schema-modal" onclick="closeSchemaOutside(event)">
+  <div class="schema-box">
+    <button class="schema-close" onclick="closeSchema()">✕</button>
+    <div class="schema-canvas-wrap"><canvas id="schema-canvas"></canvas></div>
+    <button class="download-btn" style="width:100%;margin-top:4px;" onclick="downloadImage()">⬇️ İndir</button>
+  </div>
+</div>
 </body>
 </html>
