@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -29,36 +30,50 @@
   .arrow-symbol{font-size:1.5rem;color:var(--wood);line-height:1;}
   .step-pill{background:#F0E4D0;border-radius:20px;padding:3px 9px;font-size:0.68rem;font-weight:700;color:var(--tab-active);white-space:nowrap;}
 
-  /* MODAL */
-  .modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(30,15,5,0.82);align-items:center;justify-content:center;padding:24px;}
-  .modal-overlay.open{display:flex;}
-  .modal{background:var(--card);border-radius:28px;width:100%;max-width:360px;padding:28px 24px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;}
-  @keyframes popIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
-  .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:#EAD9C0;color:var(--wood-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;}
-  .modal-badge{display:inline-block;font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--wood-dark);background:#F0E4D0;border-radius:20px;padding:3px 12px;margin-bottom:10px;}
-  .modal-title{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:18px;line-height:1.3;}
-  .modal-target-label{font-family:'Baloo 2',cursive;font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:10px;}
-  .modal-tower-wrap{display:flex;justify-content:center;background:#FBF3E8;border-radius:16px;padding:16px 10px 10px;margin-bottom:18px;border:1.5px solid var(--border);}
-  .modal-steps{margin-bottom:20px;}
-  .modal-steps-title{font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-  .modal-steps-list{display:flex;flex-direction:column;gap:5px;}
-  .modal-step{display:flex;align-items:center;gap:8px;background:#F0E4D0;border-radius:12px;padding:6px 12px;font-size:0.82rem;font-weight:700;color:var(--tab-active);}
-  .modal-step-num{width:20px;height:20px;border-radius:50%;background:var(--tab-active);color:#FBF3E8;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .download-btn{width:100%;padding:13px;border:none;border-radius:14px;background:var(--tab-active);color:#FBF3E8;font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s;}
-  .download-btn:active{opacity:0.8;}
-  .btn-row{display:flex;gap:10px;margin-top:0;}
-  .btn-schema{flex:1;padding:13px;border:none;border-radius:14px;background:#EAD9C0;color:var(--tab-active);font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
-  .btn-schema:active{opacity:0.7;}
-  /* SCHEMA MODAL */
-  .schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
-  .schema-overlay.open{display:flex;}
-  .schema-box{background:#fff;border-radius:6px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:12px;animation:popIn 0.2s ease both;max-width:340px;width:100%;margin:auto;position:relative;}
-  .schema-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:2px;}
-  .schema-modal-title{font-family:'Baloo 2',cursive;font-size:0.9rem;font-weight:800;color:#3A2410;}
-  .schema-close{width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .schema-canvas-wrap{border:2px solid #222;border-radius:0;overflow:hidden;width:100%;}
-  .schema-canvas-wrap canvas{display:block;width:100%;height:auto;}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(30,15,5,0.82);align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(–card);border-radius:28px;width:100%;max-width:360px;padding:28px 24px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;}
+@keyframes popIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
+.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:#EAD9C0;color:var(–wood-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;}
+.modal-badge{display:inline-block;font-family:‘Baloo 2’,cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(–wood-dark);background:#F0E4D0;border-radius:20px;padding:3px 12px;margin-bottom:10px;}
+.modal-title{font-family:‘Baloo 2’,cursive;font-size:1.15rem;font-weight:800;color:var(–text);margin-bottom:18px;line-height:1.3;}
+.modal-target-label{font-family:‘Baloo 2’,cursive;font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(–muted);text-align:center;margin-bottom:10px;}
+.modal-tower-wrap{display:flex;justify-content:center;background:#FBF3E8;border-radius:16px;padding:16px 10px 10px;margin-bottom:18px;border:1.5px solid var(–border);}
+.modal-steps{margin-bottom:20px;}
+.modal-steps-title{font-family:‘Baloo 2’,cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(–muted);margin-bottom:8px;}
+.modal-steps-list{display:flex;flex-direction:column;gap:5px;}
+.modal-step{display:flex;align-items:center;gap:8px;background:#F0E4D0;border-radius:12px;padding:6px 12px;font-size:0.82rem;font-weight:700;color:var(–tab-active);}
+.modal-step-num{width:20px;height:20px;border-radius:50%;background:var(–tab-active);color:#FBF3E8;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.download-btn{width:100%;padding:13px;border:none;border-radius:14px;background:var(–tab-active);color:#FBF3E8;font-family:‘Baloo 2’,cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s;}
+.download-btn:active{opacity:0.8;}
+.btn-row{display:flex;gap:10px;margin-top:0;}
+.btn-schema{flex:1;padding:13px;border:none;border-radius:14px;background:#EAD9C0;color:var(–tab-active);font-family:‘Baloo 2’,cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
+.btn-schema:active{opacity:0.7;}
+/* SCHEMA MODAL */
+.schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+.schema-overlay.open{display:flex;}
+.schema-box{background:#fff;border-radius:6px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:12px;animation:popIn 0.2s ease both;max-width:340px;width:100%;margin:auto;position:relative;}
+.schema-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:2px;}
+.schema-modal-title{font-family:‘Baloo 2’,cursive;font-size:0.9rem;font-weight:800;color:#3A2410;}
+.schema-close{width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.schema-canvas-wrap{border:2px solid #222;border-radius:0;overflow:hidden;width:100%;}
+.schema-canvas-wrap canvas{display:block;width:100%;height:auto;}
+.print-tab-btn{background:#5B3218!important;color:#FBF3E8!important;}
+/* PRINT PAGE */
+#print-page{display:none;position:fixed;inset:0;z-index:300;background:#f0ece6;overflow-y:auto;}
+.print-topbar{position:sticky;top:0;z-index:10;background:#5B3218;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.print-topbar h2{font-family:‘Baloo 2’,cursive;color:#FBF3E8;font-size:1.1rem;font-weight:800;}
+.print-close{background:#EAD9C0;border:none;border-radius:20px;padding:6px 16px;font-family:‘Baloo 2’,cursive;font-weight:800;color:#5B3218;cursor:pointer;font-size:0.9rem;}
+.print-body{padding:16px;display:flex;flex-direction:column;gap:24px;}
+.print-start-section{background:#fff;border:2px solid #111;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.print-start-label{font-family:‘Baloo 2’,cursive;font-weight:800;font-size:1rem;color:#3A2410;letter-spacing:1px;}
+.print-group{display:flex;flex-direction:column;gap:0;}
+.print-group-title{font-family:‘Baloo 2’,cursive;font-weight:800;font-size:0.85rem;color:#5B3218;padding:8px 0 4px;letter-spacing:1px;text-transform:uppercase;}
+.print-scenario-wrap{background:#fff;border:1.5px solid #222;display:flex;flex-direction:column;align-items:center;margin-bottom:12px;}
+.print-scenario-wrap canvas{display:block;width:100%;height:auto;}
 </style>
+
 </head>
 <body>
 <header>
@@ -70,6 +85,7 @@
   <button class="tab-btn" onclick="showTab('t2',this)">2 Hamle</button>
   <button class="tab-btn" onclick="showTab('t3',this)">3 Hamle</button>
   <button class="tab-btn" onclick="showTab('t4',this)">4 Hamle</button>
+  <button class="tab-btn print-tab-btn" onclick="openPrintPage()">📋 Tüm Şemalar</button>
 </div>
 <div id="t1" class="tab-content active"></div>
 <div id="t2" class="tab-content"></div>
@@ -227,7 +243,7 @@ function closeModalOutside(e){if(e.target===document.getElementById('modal'))clo
 // Draws a schematic tower — flat colors, hollow rods, white base
 function drawSchematicTower(ctx, c0, c1, c2, cx, cy, scale=1, whiteBase=false) {
   const cols = [c0||[], c1||[], c2||[]];
-  const capH = [74, 50, 26];
+  const capH = [90, 58, 26]; // sol=3 boncuk, orta=2, sag=1 — orantılı
   const xs = [-38, 0, 38].map(x => cx + x*scale);
   const baseW = 108*scale, baseH = 11*scale;
   const rW = 5*scale, bR = 13*scale;
@@ -290,20 +306,24 @@ function simulateSteps(sc){
 function buildStepsCanvas(targetCanvas){
   const sc = currentSC; if(!sc) return null;
   const states = simulateSteps(sc);
-  const N = states.length; // start + N-1 moves = N panels
+  // Skip first state (başlangıç), only show states after each move
+  const moveStates = states.slice(1);
+  const N = moveStates.length;
   const S = 3;
 
-  // Each panel: tower box + divider with hamle text between panels
-  // Panel dimensions
   const W = 260;
-  const panelW = W - 20; // 240
-  const panelX = 10;
-  const towerH = 160; // height of tower inside panel
-  const panelH = towerH + 16; // total panel height (label inside top)
-  const divH = 28; // divider row height
-  // Total height = N panels + (N-1) dividers + top/bottom padding
-  const padY = 10;
-  const H = padY + N * panelH + (N-1) * divH + padY;
+  const outerPad = 10;
+  const panelX = outerPad;
+  const panelW = W - outerPad*2;
+
+  // Panel: tower area + label below
+  const towerAreaH = 180;
+  const labelH = 26;
+  const panelH = towerAreaH + labelH;
+  // Divider line between panels
+  const divH = 1;
+
+  const H = outerPad + N * panelH + (N-1)*divH + outerPad;
 
   const canvas = targetCanvas || document.createElement('canvas');
   canvas.width = W*S; canvas.height = H*S;
@@ -312,39 +332,49 @@ function buildStepsCanvas(targetCanvas){
   ctx.save();
   ctx.scale(S,S);
 
+  // White bg
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
 
   for(let i=0;i<N;i++){
-    const state = states[i];
-    const panelY = padY + i*(panelH + divH);
+    const state = moveStates[i];
+    const panelY = outerPad + i*(panelH + divH);
 
-    // Panel border
-    ctx.strokeStyle='#111'; ctx.lineWidth=1.2;
-    ctx.strokeRect(panelX, panelY, panelW, panelH);
-
-    // Tower centered in panel
-    const cx = W/2;
-    const cy = panelY + panelH - 12;
-    drawSchematicTower(ctx, state[0], state[1], state[2], cx, cy, 0.9, true);
-
-    // Divider between panels (hamle label)
-    if(i < N-1){
-      const divY = panelY + panelH;
-      // left line
-      ctx.strokeStyle='#bbb'; ctx.lineWidth=0.8;
-      ctx.beginPath(); ctx.moveTo(panelX+10, divY+divH/2); ctx.lineTo(W/2-40, divY+divH/2); ctx.stroke();
-      // right line
-      ctx.beginPath(); ctx.moveTo(W/2+40, divY+divH/2); ctx.lineTo(panelX+panelW-10, divY+divH/2); ctx.stroke();
-      // hamle text
-      ctx.fillStyle='#111'; ctx.font='bold 10px sans-serif'; ctx.textAlign='center';
-      const moveLabel = sc.steps[i].replace('🔵','Mavi').replace('🟡','Sarı').replace('🔴','Kırmızı');
-      ctx.fillText(moveLabel, W/2, divY+divH/2+4);
+    // Divider line between panels (not before first)
+    if(i > 0){
+      ctx.strokeStyle='#222'; ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.moveTo(panelX, panelY);
+      ctx.lineTo(panelX+panelW, panelY);
+      ctx.stroke();
     }
+
+    // Draw tower in upper part of panel
+    const cx = W/2;
+    const cy = panelY + towerAreaH - 14;
+    drawSchematicTower(ctx, state[0], state[1], state[2], cx, cy, 1.0, true);
+
+    // Label below tower area: "Hamle sayısı: X"
+    const labelY = panelY + towerAreaH;
+    ctx.fillStyle='#111';
+    ctx.font='13px sans-serif';
+    ctx.textAlign='center';
+    // "Hamle sayısı: " normal, number bold
+    const label1 = 'Hamle sayısı: ';
+    const label2 = String(i+1);
+    const w1 = ctx.measureText(label1).width;
+    const w2Bold = 13; // approx bold width
+    const totalW = w1 + w2Bold;
+    const startX = W/2 - totalW/2;
+    ctx.textAlign='left';
+    ctx.font='13px sans-serif';
+    ctx.fillText(label1, startX, labelY + 17);
+    ctx.font='bold 13px sans-serif';
+    ctx.fillText(label2, startX + w1, labelY + 17);
   }
 
   // Outer border
   ctx.strokeStyle='#111'; ctx.lineWidth=1.5;
-  ctx.strokeRect(2,2,W-4,H-4);
+  ctx.strokeRect(outerPad, outerPad, panelW, H - outerPad*2);
 
   ctx.restore();
   return canvas;
@@ -471,13 +501,88 @@ function downloadImage(){
   link.click();
 }
 
+// ── PRINT PAGE ──────────────────────────────────────────────
+
+function buildScenarioStepsCanvas(sc, tabN){
+  // Same as buildStepsCanvas but for a given sc (not currentSC)
+  const savedSC = currentSC, savedTabN = currentTabN;
+  currentSC = sc; currentTabN = tabN;
+  const canvas = buildStepsCanvas();
+  currentSC = savedSC; currentTabN = savedTabN;
+  return canvas;
+}
+
+function openPrintPage(){
+  const body = document.getElementById('print-body');
+  body.innerHTML = '';
+
+  // ── START section ──
+  const startSection = document.createElement('div');
+  startSection.className = 'print-start-section';
+  const startLabel = document.createElement('div');
+  startLabel.className = 'print-start-label';
+  startLabel.textContent = 'BAŞLANGIÇ DURUMU';
+  startSection.appendChild(startLabel);
+
+  // Draw start tower on canvas
+  const startCanvas = document.createElement('canvas');
+  const S=3, W=260, H=200;
+  startCanvas.width=W*S; startCanvas.height=H*S;
+  startCanvas.style.width='100%'; startCanvas.style.maxWidth='260px';
+  const ctx=startCanvas.getContext('2d');
+  ctx.scale(S,S);
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,W,H);
+  drawSchematicTower(ctx, START[0], START[1], START[2], W/2, H-14, 1.05, true);
+  startSection.appendChild(startCanvas);
+  body.appendChild(startSection);
+
+  // ── Groups ──
+  [1,2,3,4].forEach(n => {
+    const groupDiv = document.createElement('div');
+    groupDiv.className = 'print-group';
+
+    const title = document.createElement('div');
+    title.className = 'print-group-title';
+    title.textContent = n + ' Hamlelik Senaryolar';
+    groupDiv.appendChild(title);
+
+    SCENARIOS[n].forEach(sc => {
+      const wrap = document.createElement('div');
+      wrap.className = 'print-scenario-wrap';
+
+      // Build steps canvas for this scenario
+      const savedSC = currentSC, savedTabN = currentTabN;
+      currentSC = sc; currentTabN = n;
+      const canvas = buildStepsCanvas();
+      currentSC = savedSC; currentTabN = savedTabN;
+
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+      wrap.appendChild(canvas);
+      groupDiv.appendChild(wrap);
+    });
+
+    body.appendChild(groupDiv);
+  });
+
+  document.getElementById('print-page').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closePrintPage(){
+  document.getElementById('print-page').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 function showTab(id,btn){
   document.querySelectorAll('.tab-content').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(e=>e.classList.remove('active'));
   document.getElementById(id).classList.add('active'); btn.classList.add('active');
 }
 </script>
+
 <!-- SCHEMA PREVIEW MODAL -->
+
 <div class="schema-overlay" id="schema-modal" onclick="closeSchemaOutside(event)">
   <div class="schema-box">
     <div class="schema-topbar">
@@ -487,6 +592,14 @@ function showTab(id,btn){
     <div class="schema-canvas-wrap"><canvas id="schema-canvas"></canvas></div>
     <button class="download-btn" style="width:100%;" id="schema-download-btn" onclick="currentSchemaDownload()">⬇️ İndir</button>
   </div>
+</div>
+<!-- PRINT PAGE -->
+<div id="print-page">
+  <div class="print-topbar">
+    <h2>📋 Tüm Şemalar</h2>
+    <button class="print-close" onclick="closePrintPage()">✕ Kapat</button>
+  </div>
+  <div class="print-body" id="print-body"></div>
 </div>
 </body>
 </html>
