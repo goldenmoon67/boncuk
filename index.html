@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
@@ -30,50 +29,49 @@
   .arrow-symbol{font-size:1.5rem;color:var(--wood);line-height:1;}
   .step-pill{background:#F0E4D0;border-radius:20px;padding:3px 9px;font-size:0.68rem;font-weight:700;color:var(--tab-active);white-space:nowrap;}
 
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(30,15,5,0.82);align-items:center;justify-content:center;padding:24px;}
-.modal-overlay.open{display:flex;}
-.modal{background:var(–card);border-radius:28px;width:100%;max-width:360px;padding:28px 24px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;}
-@keyframes popIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
-.modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:#EAD9C0;color:var(–wood-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;}
-.modal-badge{display:inline-block;font-family:‘Baloo 2’,cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(–wood-dark);background:#F0E4D0;border-radius:20px;padding:3px 12px;margin-bottom:10px;}
-.modal-title{font-family:‘Baloo 2’,cursive;font-size:1.15rem;font-weight:800;color:var(–text);margin-bottom:18px;line-height:1.3;}
-.modal-target-label{font-family:‘Baloo 2’,cursive;font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(–muted);text-align:center;margin-bottom:10px;}
-.modal-tower-wrap{display:flex;justify-content:center;background:#FBF3E8;border-radius:16px;padding:16px 10px 10px;margin-bottom:18px;border:1.5px solid var(–border);}
-.modal-steps{margin-bottom:20px;}
-.modal-steps-title{font-family:‘Baloo 2’,cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(–muted);margin-bottom:8px;}
-.modal-steps-list{display:flex;flex-direction:column;gap:5px;}
-.modal-step{display:flex;align-items:center;gap:8px;background:#F0E4D0;border-radius:12px;padding:6px 12px;font-size:0.82rem;font-weight:700;color:var(–tab-active);}
-.modal-step-num{width:20px;height:20px;border-radius:50%;background:var(–tab-active);color:#FBF3E8;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.download-btn{width:100%;padding:13px;border:none;border-radius:14px;background:var(–tab-active);color:#FBF3E8;font-family:‘Baloo 2’,cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s;}
-.download-btn:active{opacity:0.8;}
-.btn-row{display:flex;gap:10px;margin-top:0;}
-.btn-schema{flex:1;padding:13px;border:none;border-radius:14px;background:#EAD9C0;color:var(–tab-active);font-family:‘Baloo 2’,cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
-.btn-schema:active{opacity:0.7;}
-/* SCHEMA MODAL */
-.schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
-.schema-overlay.open{display:flex;}
-.schema-box{background:#fff;border-radius:6px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:12px;animation:popIn 0.2s ease both;max-width:340px;width:100%;margin:auto;position:relative;}
-.schema-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:2px;}
-.schema-modal-title{font-family:‘Baloo 2’,cursive;font-size:0.9rem;font-weight:800;color:#3A2410;}
-.schema-close{width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.schema-canvas-wrap{border:2px solid #222;border-radius:0;overflow:hidden;width:100%;}
-.schema-canvas-wrap canvas{display:block;width:100%;height:auto;}
-.print-tab-btn{background:#5B3218!important;color:#FBF3E8!important;}
-/* PRINT PAGE */
-#print-page{display:none;position:fixed;inset:0;z-index:300;background:#f0ece6;overflow-y:auto;}
-.print-topbar{position:sticky;top:0;z-index:10;background:#5B3218;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
-.print-topbar h2{font-family:‘Baloo 2’,cursive;color:#FBF3E8;font-size:1.1rem;font-weight:800;}
-.print-close{background:#EAD9C0;border:none;border-radius:20px;padding:6px 16px;font-family:‘Baloo 2’,cursive;font-weight:800;color:#5B3218;cursor:pointer;font-size:0.9rem;}
-.print-body{padding:16px;display:flex;flex-direction:column;gap:24px;}
-.print-start-section{background:#fff;border:2px solid #111;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;}
-.print-start-label{font-family:‘Baloo 2’,cursive;font-weight:800;font-size:1rem;color:#3A2410;letter-spacing:1px;}
-.print-group{display:flex;flex-direction:column;gap:0;}
-.print-group-title{font-family:‘Baloo 2’,cursive;font-weight:800;font-size:0.85rem;color:#5B3218;padding:8px 0 4px;letter-spacing:1px;text-transform:uppercase;}
-.print-scenario-wrap{background:#fff;border:1.5px solid #222;display:flex;flex-direction:column;align-items:center;margin-bottom:12px;}
-.print-scenario-wrap canvas{display:block;width:100%;height:auto;}
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(30,15,5,0.82);align-items:center;justify-content:center;padding:24px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--card);border-radius:28px;width:100%;max-width:360px;padding:28px 24px 24px;box-shadow:0 20px 60px rgba(0,0,0,0.4);position:relative;animation:popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;}
+  @keyframes popIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
+  .modal-close{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;border:none;background:#EAD9C0;color:var(--wood-dark);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;}
+  .modal-badge{display:inline-block;font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--wood-dark);background:#F0E4D0;border-radius:20px;padding:3px 12px;margin-bottom:10px;}
+  .modal-title{font-family:'Baloo 2',cursive;font-size:1.15rem;font-weight:800;color:var(--text);margin-bottom:18px;line-height:1.3;}
+  .modal-target-label{font-family:'Baloo 2',cursive;font-size:0.72rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:10px;}
+  .modal-tower-wrap{display:flex;justify-content:center;background:#FBF3E8;border-radius:16px;padding:16px 10px 10px;margin-bottom:18px;border:1.5px solid var(--border);}
+  .modal-steps{margin-bottom:20px;}
+  .modal-steps-title{font-family:'Baloo 2',cursive;font-size:0.7rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  .modal-steps-list{display:flex;flex-direction:column;gap:5px;}
+  .modal-step{display:flex;align-items:center;gap:8px;background:#F0E4D0;border-radius:12px;padding:6px 12px;font-size:0.82rem;font-weight:700;color:var(--tab-active);}
+  .modal-step-num{width:20px;height:20px;border-radius:50%;background:var(--tab-active);color:#FBF3E8;font-size:0.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .download-btn{width:100%;padding:13px;border:none;border-radius:14px;background:var(--tab-active);color:#FBF3E8;font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity 0.15s;}
+  .download-btn:active{opacity:0.8;}
+  .btn-row{display:flex;gap:10px;margin-top:0;}
+  .btn-schema{flex:1;padding:13px;border:none;border-radius:14px;background:#EAD9C0;color:var(--tab-active);font-family:'Baloo 2',cursive;font-size:1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity 0.15s;}
+  .btn-schema:active{opacity:0.7;}
+  /* SCHEMA MODAL */
+  .schema-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(10,5,0,0.88);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+  .schema-overlay.open{display:flex;}
+  .schema-box{background:#fff;border-radius:6px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.5);display:flex;flex-direction:column;align-items:center;gap:12px;animation:popIn 0.2s ease both;max-width:340px;width:100%;margin:auto;position:relative;}
+  .schema-topbar{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:2px;}
+  .schema-modal-title{font-family:'Baloo 2',cursive;font-size:0.9rem;font-weight:800;color:#3A2410;}
+  .schema-close{width:30px;height:30px;border-radius:50%;border:none;background:#eee;color:#333;font-size:1rem;cursor:pointer;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .schema-canvas-wrap{border:2px solid #222;border-radius:0;overflow:hidden;width:100%;}
+  .schema-canvas-wrap canvas{display:block;width:100%;height:auto;}
+  .print-tab-btn{background:#5B3218!important;color:#FBF3E8!important;}
+  /* PRINT PAGE */
+  #print-page{display:none;position:fixed;inset:0;z-index:300;background:#f0ece6;overflow-y:auto;}
+  .print-topbar{position:sticky;top:0;z-index:10;background:#5B3218;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+  .print-topbar h2{font-family:'Baloo 2',cursive;color:#FBF3E8;font-size:1.1rem;font-weight:800;}
+  .print-close{background:#EAD9C0;border:none;border-radius:20px;padding:6px 16px;font-family:'Baloo 2',cursive;font-weight:800;color:#5B3218;cursor:pointer;font-size:0.9rem;}
+  .print-body{padding:16px;display:flex;flex-direction:column;gap:24px;}
+  .print-start-section{background:#fff;border:2px solid #111;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .print-start-label{font-family:'Baloo 2',cursive;font-weight:800;font-size:1rem;color:#3A2410;letter-spacing:1px;}
+  .print-group{display:flex;flex-direction:column;gap:0;}
+  .print-group-title{font-family:'Baloo 2',cursive;font-weight:800;font-size:0.85rem;color:#5B3218;padding:8px 0 4px;letter-spacing:1px;text-transform:uppercase;}
+  .print-scenario-wrap{background:#fff;border:1.5px solid #222;display:flex;flex-direction:column;align-items:center;margin-bottom:12px;}
+  .print-scenario-wrap canvas{display:block;width:100%;height:auto;}
 </style>
-
 </head>
 <body>
 <header>
@@ -85,12 +83,14 @@
   <button class="tab-btn" onclick="showTab('t2',this)">2 Hamle</button>
   <button class="tab-btn" onclick="showTab('t3',this)">3 Hamle</button>
   <button class="tab-btn" onclick="showTab('t4',this)">4 Hamle</button>
+  <button class="tab-btn" onclick="showTab('t5',this)">5 Hamle</button>
   <button class="tab-btn print-tab-btn" onclick="openPrintPage()">📋 Tüm Şemalar</button>
 </div>
 <div id="t1" class="tab-content active"></div>
 <div id="t2" class="tab-content"></div>
 <div id="t3" class="tab-content"></div>
 <div id="t4" class="tab-content"></div>
+<div id="t5" class="tab-content"></div>
 
 <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
   <div class="modal" id="modal-box">
@@ -153,6 +153,13 @@ const SCENARIOS = {
     { label:"Kırmızı & Sarı solda, Mavi sağda", steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ","🟡 → Sol"],  end:[['R','Y'],[],['B']]   },
     { label:"Sarı & Kırmızı ortada, Mavi sağda",steps:["🟡 → Sol","🔴 → Orta","🟡 → Orta","🔵 → Sağ"], end:[[],['R','Y'],['B']]   },
     { label:"Sarı sağda, Kırmızı & Mavi ortada",steps:["🟡 → Sol","🔴 → Orta","🟡 → Sağ","🔵 → Orta"], end:[[],['R','B'],['Y']]   },
+  ],
+  5: [
+    { label:"Kırmızı solda, Mavi ortada, Sarı sağda",   steps:["🔵 → Orta","🔴 → Sol","🔵 → Sol","🟡 → Sağ","🔵 → Orta"],  end:[['R'],['B'],['Y']]        },
+    { label:"Kırmızı-Sarı-Mavi solda",                  steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ","🟡 → Sol","🔵 → Sol"],   end:[['R','Y','B'],[],[]]       },
+    { label:"Kırmızı & Sarı solda, Mavi ortada",        steps:["🔵 → Orta","🔴 → Sol","🔵 → Sağ","🟡 → Sol","🔵 → Orta"],  end:[['R','Y'],['B'],[]]        },
+    { label:"Sarı solda, Kırmızı ortada, Mavi sağda",   steps:["🟡 → Sol","🔴 → Orta","🟡 → Orta","🔵 → Sağ","🟡 → Sol"],  end:[['Y'],['R'],['B']]         },
+    { label:"Sarı solda, Kırmızı & Mavi ortada",        steps:["🟡 → Sol","🔴 → Orta","🟡 → Sağ","🔵 → Orta","🟡 → Sol"],  end:[['Y'],['R','B'],[]]        },
   ]
 };
 
@@ -220,7 +227,7 @@ function renderTab(n){
   });
   document.getElementById('t'+n).innerHTML=html+'</div>';
 }
-[1,2,3,4].forEach(renderTab);
+[1,2,3,4,5].forEach(renderTab);
 
 function openModal(n,i){
   const sc=SCENARIOS[n][i];
@@ -537,7 +544,7 @@ function openPrintPage(){
   body.appendChild(startSection);
 
   // ── Groups ──
-  [1,2,3,4].forEach(n => {
+  [1,2,3,4,5].forEach(n => {
     const groupDiv = document.createElement('div');
     groupDiv.className = 'print-group';
 
@@ -580,9 +587,7 @@ function showTab(id,btn){
   document.getElementById(id).classList.add('active'); btn.classList.add('active');
 }
 </script>
-
 <!-- SCHEMA PREVIEW MODAL -->
-
 <div class="schema-overlay" id="schema-modal" onclick="closeSchemaOutside(event)">
   <div class="schema-box">
     <div class="schema-topbar">
